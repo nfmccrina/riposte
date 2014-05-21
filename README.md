@@ -1,0 +1,63 @@
+What is Riposte?
+===============================================================================
+Riposte is a utility for ripping audio CDs. It aims to be flexible and avoid
+imposing a particular file storage/naming/tagging structure on the user. It
+currently only supports the FLAC format, but MP3 and OGG support is on the
+way.
+
+Downloading
+===============================================================================
+Riposte can always be obtained from the Github repository,
+https://github.com/nfmccrina/riposte
+
+Documentation
+===============================================================================
+The Riposte program is run as follows:
+
+riposte [--cli] [--gui] [FILE]
+
+When run with no arguments, the command-line interface will be started.
+NOTE: currently only the command-line interface is implemented.
+
+When started, the program will read settings from a preferences file. Settings
+will be read from the FILE argument given at invocation, or if none was given
+it will read ~/.riposte. The configuration file is a simple INI file. The
+following options are supported:
+
+    * location: the directory where the audio files will be ripped to
+    * audioformat: specify FLAC, MP3, or OGG
+    * flacoptions: a list of arguments that will be passed to the flac encoder
+    
+The command-line interface presents a series of prompts to the user. Press 'h'
+at any time to display a contextual help menu.
+
+Bug Reporting
+===============================================================================
+If you encounter a bug, you can send a description of the problem to
+salmacis88@gmail.com
+
+Author
+===============================================================================
+Riposte is developed by Nathan McCrina.
+
+===============================================================================
+Copyright (C) 2014 Nathan McCrina
+This file is part of Riposte.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
