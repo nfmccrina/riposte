@@ -27,6 +27,7 @@ following options are supported:
     location: the directory where the audio files will be ripped to
     audioformat: specify FLAC, MP3, or OGG
     flacoptions: a list of arguments that will be passed to the flac encoder
+    tmpdir: directory the program will use for temporary files
     
 The command-line interface presents a series of prompts to the user. Press 'h'
 at any time to display a contextual help menu.
