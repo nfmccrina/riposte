@@ -1,4 +1,5 @@
 import os
+import os.path
 import re
 import subprocess
 import ripdata
@@ -22,9 +23,21 @@ class Ripper:
         # set metadata
         # move to desired location
 
+        if self.data['trackartists'][0] == ' ':
+            print('Warning: CD metadata not set!')
+            return None
+
+        if self.data['tracknames'][0] == ' ':
+            print('Warning: CD metadata not set!')
+            return None
+            
+        if not self.check_tools():
+            return None
+
         if os.path.exists(self.settings['tmpdir']):
             shutil.rmtree(self.settings['tmpdir'])
             os.mkdir(self.settings['tmpdir'])
+            #pass
         else:
             os.mkdir(self.settings['tmpdir'])
 
@@ -98,7 +111,7 @@ class Ripper:
         if not os.path.exists(self.settings['riplocation']):
             os.mkdir(self.settings['riplocation'])
 
-        substitutions = {'%a': self.data['trackartists'][tracknum], '%A': self.data['album'], '%d': self.data['discnumber'], '%g': self.data['genre'], '%n': int(tracknum + 1), '%t': self.data['tracknames'][tracknum], '%y': self.data['year']}
+        substitutions = {'%a': self.data['trackartists'][tracknum].replace('/', '_'), '%A': self.data['album'].replace('/', '_'), '%d': str(self.data['discnumber']).replace('/', '_'), '%g': self.data['genre'].replace('/', '_'), '%n': '0' + str(int(tracknum + 1)) if int(tracknum + 1) < 10 else int(tracknum + 1), '%t': self.data['tracknames'][tracknum].replace('/', '_'), '%y': str(self.data['year']).replace('/', '_')}
 
         name = self.settings['filenameformat']
         name = name.split('/')
@@ -121,3 +134,21 @@ class Ripper:
             path = path + '.flac'
 
         return path
+
+    def check_tools(self):
+        # Make sure that the required tools (cdparanoia, flac, etc.) are in place
+
+        try:
+            subprocess.call(['cdparanoia', '-V'], stderr=subprocess.STDOUT, stdout=open('/dev/null'))
+        except OSError:
+            print('Warning: cdparanoia is not installed')
+            return False
+
+        if self.settings['audioformat'] == 'flac':
+            try:
+                subprocess.call(['flac', '-v'], stderr=subprocess.STDOUT, stdout=open('/dev/null'))
+            except OSError:
+                print('Warning: flac is not installed')
+                return False
+
+        return True

@@ -20,7 +20,7 @@ class ConsoleGui:
         print('Press "h" for help, or "q" to quit')
 
         while user_input != 'q':
-            user_input = raw_input("Enter command: ")
+            user_input = raw_input("Command: ")
 
             if user_input == 'r':
                 audio_ripper.set_data(self.cd_info)
@@ -53,16 +53,17 @@ class ConsoleGui:
     def get_cd_info(self):
         # collect album info from user
 
+        print('Edit Album Info (press \'h\' for help)')
         usr_input = ''
         while usr_input != 'b':
-            print('Edit Album Info (press \'h\' for help)')
             
-            usr_input = raw_input('> ')
+            usr_input = raw_input('Command: ')
             
             if usr_input == 'h':
                 print('a: edit album title')
                 print('A: edit artist name')
                 print('b: back to main menu')
+                print('c: clear current metadata')
                 print('d: edit disc number')
                 print('f: import album info from file')
                 print('g: edit genre')
@@ -71,6 +72,9 @@ class ConsoleGui:
                 print('T: edit individual track titles')
                 print('v: toggle various artists')
                 print('y: edit year')
+            elif usr_input == 'c':
+                self.cd_info = ripdata.RipData()
+                self.cd_info.initialize()
             elif usr_input == 'a':
                 self.cd_info['album'] = raw_input('Enter album title: ')
             elif usr_input == 'A':
@@ -126,7 +130,7 @@ class ConsoleGui:
                     pass
 
     def read_info_file(self, f):
-        data = configobj.ConfigObj(f)
+        data = configobj.ConfigObj(f, unrepr=True)
         rdata = ripdata.RipData()
         rdata.initialize()
 
